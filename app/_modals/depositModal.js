@@ -65,9 +65,7 @@ export default function DepositModal(props) {
 
   // The minimum amounts for each network, modify to set the minimum amount
   const minimumAmounts = {
-    Canto: 0.1,
-    Ethereum: 0.001,
-    Mumbai: 0.01,
+    Canto: 10,
   };
 
   return (

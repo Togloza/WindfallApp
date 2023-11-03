@@ -23,8 +23,6 @@ export default function DrawDetails() {
   //Array of variables that make the app rerender with the latest state upon changing
   const dependencyArray = [
     drawDetails.Canto.totalStaked,
-    drawDetails.Matic.totalStaked,
-    drawDetails.Ethereum.totalStaked,
   ];
 
   // UseEffect that rerenders the app anytime one of the dependecies above are changed

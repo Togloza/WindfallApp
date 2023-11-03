@@ -31,16 +31,6 @@ const contracts = {
     tokenContract: process.env.NEXT_PUBLIC_CANTO_TOKEN_CONTRACT_ADDRESS,
     rpcURL: "https://canto-testnet.plexnode.wtf",
   },
-  Matic: {
-    stakingContract: process.env.NEXT_PUBLIC_MATIC_CONTRACT_ADDRESS,
-    tokenContract: process.env.NEXT_PUBLIC_MATIC_TOKEN_CONTRACT_ADDRESS,
-    rpcURL: "https://endpoints.omniatech.io/v1/matic/mumbai/public",
-  },
-  Ethereum: {
-    stakingContract: process.env.NEXT_PUBLIC_ETHEREUM_CONTRACT_ADDRESS,
-    tokenContract: process.env.NEXT_PUBLIC_ETHEREUM_TOKEN_CONTRACT_ADDRESS,
-    rpcURL: "https://goerli.infura.io/v3/feabfe61cc34425dae943b13d19d6f07",
-  },
 };
 
 // creates an instance of the contract object for the staking contract of the network the user is connected to
@@ -85,22 +75,7 @@ const getTokenContract = async () => {
 
 // returns a string of the network the user is connected to
 const determineNetwork = async () => {
-  const provider = await getProvider();
-  const network = await provider.getNetwork();
-
-  var networkName;
-
-  if (network.name === "goerli") {
-    networkName = "Ethereum";
-  } else if (network.name === "matic-mumbai") {
-    networkName = "Matic";
-  } else if (network.chainId.toString() === "7701") {
-    networkName = "Canto";
-  } else {
-    return "Other";
-  }
-
-  return networkName;
+  return "Canto"; 
 };
 
 /**
@@ -122,30 +97,6 @@ const switchNetwork = async (network) => {
         },
         rpcUrls: ["https://canto-testnet.plexnode.wtf"],
         blockExplorerUrls: ["https://testnet.tuber.build/"],
-      },
-      Ethereum: {
-        chainId: "0x5", // Chain ID for Ethereum mainnet
-        chainName: "Goerli",
-        nativeCurrency: {
-          name: "Ethereum",
-          symbol: "ETH",
-          decimals: 18,
-        },
-        rpcUrls: [
-          "https://goerli.infura.io/v3/feabfe61cc34425dae943b13d19d6f07",
-        ],
-        blockExplorerUrls: ["https://goerli.etherscan.io/"], // Goerli block explorer URL
-      },
-      Matic: {
-        chainId: "0x13881",
-        chainName: "Matic Mumbai",
-        nativeCurrency: {
-          name: "MATIC",
-          symbol: "MATIC",
-          decimals: 18,
-        },
-        rpcUrls: ["https://rpc-mumbai.maticvigil.com"], // Matic mumbai RPC URL
-        blockExplorerUrls: ["https://mumbai.polygonscan.com/"], // Matic block explorer URL
       },
     };
 
@@ -179,6 +130,7 @@ const getFrontendData = async (network) => {
   const [
     isSuper,
     superMultiplier,
+    drawCounter,
     dayAmount,
     weekAmount,
     totalStaked,
@@ -188,6 +140,7 @@ const getFrontendData = async (network) => {
     [
       "bool",
       "uint32",
+      "uint64",
       "uint256",
       "uint256",
       "uint256",
@@ -199,6 +152,7 @@ const getFrontendData = async (network) => {
   return {
     isSuper,
     superMultiplier,
+    drawCounter,
     dayAmount,
     weekAmount,
     totalStaked,
@@ -213,12 +167,10 @@ const getFrontendData = async (network) => {
  */
 const getDrawDetails = async () => {
   const cantoData = await getFrontendData("Canto");
-  const ethereumData = await getFrontendData("Ethereum");
-  const maticData = await getFrontendData("Matic");
-  const data = { Canto: cantoData, Ethereum: ethereumData, Matic: maticData };
+  const data = { Canto: cantoData };
 
-  const networkList = ["Canto", "Ethereum", "Matic"];
-  const colors = { Canto: "#01e186", Ethereum: "#3e8fff", Matic: "#a46dff" };
+  const networkList = ["Canto"];
+  const colors = { Canto: "#01e186" };
   const list = networkList.map((item) => {
     return {
       token: item,
@@ -233,8 +185,6 @@ const getDrawDetails = async () => {
   });
   const details = {
     Canto: list[0],
-    Ethereum: list[1],
-    Matic: list[2],
   };
 
   return details;
@@ -243,18 +193,15 @@ const getDrawDetails = async () => {
 // Returns an array of the last 12 draw winners
 const getRecentWindfalls = async () => {
   const cantoData = await getFrontendData("Canto");
-  const ethereumData = await getFrontendData("Ethereum");
-  const maticData = await getFrontendData("Matic");
-  const data = { Canto: cantoData, Ethereum: ethereumData, Matic: maticData };
 
-  const networkList = ["Canto", "Ethereum", "Matic"];
+  const data = { Canto: cantoData };
+
+  const networkList = ["Canto"];
 
   const contract = await getContractJson("Canto");
   const recentWindfalls = [];
 
-  const drawCounter = await contract.drawCounter();
-
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 7; i++) {
     const currentDate = new Date();
     const currentHour = currentDate.getUTCHours();
     const currentMinute = currentDate.getUTCMinutes();
@@ -276,7 +223,7 @@ const getRecentWindfalls = async () => {
     });
 
     var titleType = "DAILY";
-    if (parseInt(drawCounter) > 0 && (parseInt(drawCounter) - 1 - i) % 7 == 0) {
+    if (parseInt(data.drawCounter) > 0 && (parseInt(data.drawCounter) - 1 - i) % 7 == 0) {
       titleType = "SUPER";
     }
 
@@ -366,13 +313,13 @@ const getBalanceMinusGas = async () => {
  */
 const depositTokens = async (amount) => {
   const contract = await getContract();
-
+  console.log(contract); 
   try {
     const etherAmount = ethers.parseEther(amount);
 
     // Call the function and pass Ether
     const tx = await contract.stake({ value: etherAmount });
-
+    
     // Wait for the transaction to be mined
     await tx.wait();
     return true;

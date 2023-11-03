@@ -36,8 +36,6 @@ export default function DepositBox(props) {
   const dependencyArray = [
     user.deposits,
     drawDetails.Canto.totalStaked,
-    drawDetails.Matic.totalStaked,
-    drawDetails.Ethereum.totalStaked,
   ];
 
   // Updates the box with the latest state once an action takes place e.g startunstake, claim rewards e.t.c
