@@ -1,0 +1,272 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  width: 85%;
+  max-width: 850px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  box-sizing: border-box;
+  padding: 30px 40px;
+  padding-top: 60px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+  color: #fff;
+  text-align: center;
+  font-family: "Satoshi";
+  font-size: 40px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.2px;
+  margin-bottom: 70px;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.title__underline {
+  width: 130%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.display {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 20px;
+  font-family: "Lato";
+  font-weight: 400;
+  color: white;
+}
+
+.table__head {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.288);
+  text-align: left;
+  color: white;
+}
+
+.table__head > tr th {
+  padding-bottom: 20px;
+  text-align: center !important;
+}
+
+.table__head > tr th:nth-child(1) {
+  text-align: left !important;
+  padding-left: 25px;
+}
+
+.table__head > tr th:nth-child(2) {
+  text-align: center !important;
+  padding-right: 25px;
+}
+
+.table__head > tr th:nth-child(3) {
+  text-align: right !important;
+  padding-right: 25px;
+}
+
+.table__body {
+  padding-top: 30px;
+  font-weight: 500;
+}
+
+.row__0 td {
+  padding-top: 25px;
+}
+
+.table__body > tr td {
+  padding-bottom: 30px;
+}
+
+.table__body > tr td:nth-child(2) {
+  text-align: center;
+  padding-right: 25px;
+}
+
+.table__body > tr td:nth-child(1) {
+  padding-left: 12.5px;
+}
+
+.table__body > tr td:nth-child(3) {
+  text-align: right;
+  padding-right: 12.5px;
+}
+
+.date__mobile {
+  font-size: 14.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.055px;
+  opacity: 0.8;
+}
+
+/* Desktop sizes */
+@media (max-width: 849px) {
+  .display {
+    font-size: 18px;
+  }
+
+  .table__head > tr th:nth-child(2) {
+    text-align: center !important;
+    padding-right: 15px;
+  }
+
+  .table__body > tr td:nth-child(2) {
+    text-align: center;
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 774px) {
+  .display {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 679px) {
+  .display {
+    font-size: 14px;
+  }
+
+  .main {
+    padding: 30px 50px;
+  }
+
+  .table__head > tr th:nth-child(2) {
+    text-align: center !important;
+    padding-right: 10px;
+  }
+
+  .table__body > tr td:nth-child(2) {
+    text-align: center;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 554px) {
+  .main {
+    padding: 30px 30px;
+  }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 480px) {
+  .container {
+    padding-top: 0px;
+  }
+
+  .main {
+    width: 93.5%;
+    border-radius: 29px;
+    padding: 41px 26px;
+    padding-bottom: 15px;
+    margin-bottom: 50px;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  .display {
+    font-family: "Lato";
+  }
+
+  .title__underline {
+    display: none;
+  }
+
+  .table__head {
+    text-align: center;
+    font-size: 14px;
+    font-family: "Lato";
+    width: 100%;
+  }
+
+  .table__head > tr th {
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-bottom: 22px;
+    font-weight: 500 !important;
+  }
+
+  .table__head > tr th:nth-child(1) {
+    text-align: left !important;
+    padding-left: 0px;
+  }
+
+  .table__head > tr th:nth-child(3) {
+    text-align: inherit;
+    padding-right: 2px;
+  }
+
+  .row__0 td {
+    padding-top: 24px;
+  }
+
+  .table__body {
+    align-items: center;
+  }
+
+  .table__body > tr {
+    box-sizing: border-box;
+  }
+
+  .table__body > tr td {
+    padding-bottom: 30px;
+    padding-right: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    row-gap: 30px;
+  }
+
+  .table__body > tr td:nth-child(1) {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
+    padding-left: 0px;
+  }
+
+  .table__body > tr td:nth-child(3) {
+    text-align: right;
+    position: relative;
+    padding-right: 0px;
+  }
+
+  .title__mobile {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.06px;
+  }
+
+  .date__mobile {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.055px;
+    opacity: 0.8;
+  }
+}
