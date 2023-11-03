@@ -51,7 +51,7 @@ export default function DrawDetails() {
             <div className={styles.timer__icon}>
               <Image src={icons.timer} alt="timer icon" fill />
             </div>
-            Time until next draw
+            Final Testing Phase
           </span>
           <CountdownTimer targetTime={timeTillNextDraw} />
         </div>
