@@ -46,6 +46,7 @@ export default function DepositModal(props) {
       var depositAmount = amount.toString();
       setDepositing(true);
 
+      
       const result = await depositTokens(depositAmount);
       if (result) {
         const data = await connect();
